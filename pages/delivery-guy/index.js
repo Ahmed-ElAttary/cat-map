@@ -17,12 +17,12 @@ function MapComponent({}) {
     const map = new Map({
       target: "map",
       layers: [
-        new TileLayer({
-          source: new XYZ({
-            url: "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
-          }),
-        }),
-        //   new TileLayer({ source: new OSM() })
+        // new TileLayer({
+        //   source: new XYZ({
+        //     url: "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
+        //   }),
+        // }),
+          new TileLayer({ source: new OSM() })
       ],
       view: new View({
         center: fromLonLat([30.2, 28]),

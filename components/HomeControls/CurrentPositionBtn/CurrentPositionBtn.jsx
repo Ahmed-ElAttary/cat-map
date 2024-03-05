@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button } from "primereact/button";
 import Feature from "ol/Feature.js";
 import Point from "ol/geom/Point.js";
@@ -9,6 +9,7 @@ import VectorLayer from "ol/layer/Vector";
 import { fromLonLat } from "ol/proj";
 const CurrentPositionBtn = () => {
   const { map } = useContext(MapContext);
+  const vlRef = useRef();
   const [position, setPosition] = useState([]);
   function getLocation() {
     if (navigator.geolocation) {
@@ -20,15 +21,16 @@ const CurrentPositionBtn = () => {
     }
   }
   const setPoint = (position) => {
-    const iconFeature = new Feature(new Point(position));
     const vectorSource = new VectorSource({
-      features: [iconFeature],
+      features: [new Feature(new Point(position))],
     });
 
-    const vectorLayer = new VectorLayer({
+    vlRef.current = new VectorLayer({
       source: vectorSource,
     });
-    map.addLayer(vectorLayer);
+
+    map.removeLayer(vlRef.current);
+    map.addLayer(vlRef.current);
     setPosition(position);
     console.log(position);
   };

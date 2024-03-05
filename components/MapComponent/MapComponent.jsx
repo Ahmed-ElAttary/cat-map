@@ -32,7 +32,7 @@ function MapComponent({ children }) {
         projection: "EPSG:4326",
       }),
     });
-
+mapObject
     setMap(mapObject);
     return () => mapObject.setTarget(undefined);
   }, []);

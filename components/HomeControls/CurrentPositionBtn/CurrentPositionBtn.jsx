@@ -24,7 +24,7 @@ const CurrentPositionBtn = () => {
     const vectorSource = new VectorSource({
       features: [new Feature(new Point(position))],
     });
-    map.getView().fit(vectorSource.getExtent());
+    map.getView().fit(vectorSource.getExtent(), { maxZoom: 20 });
     map.removeLayer(vlRef.current);
     vlRef.current = new VectorLayer({
       source: vectorSource,

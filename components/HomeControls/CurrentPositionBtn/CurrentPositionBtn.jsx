@@ -6,7 +6,7 @@ import Point from "ol/geom/Point.js";
 import MapContext from "@components/MapComponent/MapContext";
 import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
-import { fromLonLat } from "ol/proj";
+
 const CurrentPositionBtn = () => {
   const { map } = useContext(MapContext);
   const vlRef = useRef();
@@ -24,12 +24,11 @@ const CurrentPositionBtn = () => {
     const vectorSource = new VectorSource({
       features: [new Feature(new Point(position))],
     });
-
+    map.getView().fit(vectorSource.getExtent());
     map.removeLayer(vlRef.current);
     vlRef.current = new VectorLayer({
       source: vectorSource,
     });
-
     map.addLayer(vlRef.current);
     setPosition(position);
     console.log(map.getLayers());
@@ -38,7 +37,7 @@ const CurrentPositionBtn = () => {
   return (
     <>
       <Button icon="pi pi-map-marker" onClick={getLocation} />
-      <div>{position.join(" , ")}</div>
+      {/* <div>{position.join(" , ")}</div> */}
     </>
   );
 };

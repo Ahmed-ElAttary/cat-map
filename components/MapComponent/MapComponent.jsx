@@ -33,6 +33,7 @@ function MapComponent({ children }) {
       }),
     });
 mapObject
+
     setMap(mapObject);
     return () => mapObject.setTarget(undefined);
   }, []);

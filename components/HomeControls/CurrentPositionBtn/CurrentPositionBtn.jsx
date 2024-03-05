@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import Feature from "ol/Feature.js";
 import Point from "ol/geom/Point.js";
@@ -9,10 +9,10 @@ import VectorLayer from "ol/layer/Vector";
 import { fromLonLat } from "ol/proj";
 const CurrentPositionBtn = () => {
   const { map } = useContext(MapContext);
+  const [position, setPosition] = useState([]);
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition((position) => {
-        console.log([position.coords.longitude, position.coords.latitude]);
         setPoint([position.coords.longitude, position.coords.latitude]);
       });
     } else {
@@ -29,9 +29,16 @@ const CurrentPositionBtn = () => {
       source: vectorSource,
     });
     map.addLayer(vectorLayer);
+    setPosition(position);
+    console.log(position);
   };
 
-  return <Button icon="pi pi-map-marker" onClick={getLocation} />;
+  return (
+    <>
+      <Button icon="pi pi-map-marker" onClick={getLocation} />
+      <div>{position.join(" , ")}</div>
+    </>
+  );
 };
 
 export default CurrentPositionBtn;

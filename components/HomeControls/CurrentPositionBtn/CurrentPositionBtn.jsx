@@ -25,14 +25,14 @@ const CurrentPositionBtn = () => {
       features: [new Feature(new Point(position))],
     });
 
+    map.removeLayer(vlRef.current);
     vlRef.current = new VectorLayer({
       source: vectorSource,
     });
 
-    map.removeLayer(vlRef.current);
     map.addLayer(vlRef.current);
     setPosition(position);
-    console.log(position);
+    console.log(map.getLayers());
   };
 
   return (
